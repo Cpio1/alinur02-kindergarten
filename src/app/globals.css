@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Сайт всегда светлый: тёмный вариант Tailwind отключён полностью */
+@custom-variant dark (&:where(.never-dark-mode));
+
+@theme {
+  --font-sans: var(--font-nunito), ui-rounded, system-ui, sans-serif;
+
+  --color-milk: #fffdf7;
+  --color-lilac: #e9d9ff;
+  --color-lavender: #a78bfa;
+  --color-violet: #6d4bd1;
+  --color-violet-dark: #5536b3;
+  --color-mint: #d7f5df;
+  --color-mint-deep: #2f9e5b;
+  --color-sun: #ffe6a7;
+  --color-sun-deep: #f5b42a;
+  --color-rose: #ffdce8;
+  --color-rose-deep: #e8608f;
+  --color-ink: #28334a;
+  --color-ink-soft: #4d5870;
+  --color-wa: #1fa855;
+  --color-wa-dark: #178a45;
+
+  --shadow-soft: 0 10px 30px -12px rgb(40 51 74 / 0.18);
+  --shadow-lift: 0 18px 40px -16px rgb(85 54 179 / 0.32);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-spin-slow: spin 24s linear infinite;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
+  --animate-blob: blob 14s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(4deg); }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.82); }
+  }
+  @keyframes blob {
+    0%, 100% { border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%; }
+    50% { border-radius: 44% 56% 42% 58% / 58% 42% 58% 42%; }
+  }
+}
+
+:root {
+  color-scheme: light only;
+  --header-h: 68px;
+  background-color: #fffdf7;
+  color: #28334a;
+}
+
+html {
+  color-scheme: light only;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background-color: #fffdf7;
+  color: #28334a;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+/* Разделы: учитываем фиксированную шапку */
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+/* «Топтар» и «Байланыс» — с дополнительным запасом */
+#groups,
+#contacts {
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+
+::selection {
+  background: #e9d9ff;
+  color: #28334a;
+}
+
+:focus-visible {
+  outline: 3px solid #6d4bd1;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.container-site {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 640px) {
+  .container-site { padding-inline: 24px; }
+}
+
+.blob-shape {
+  border-radius: 58% 42% 55% 45% / 48% 58% 42% 52%;
+}
+
+.dotted-bg {
+  background-image: radial-gradient(rgb(167 139 250 / 0.28) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

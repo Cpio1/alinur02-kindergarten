@@ -47,7 +47,7 @@ const GROUP_STYLES = [
 export function Groups() {
   const { t } = useI18n();
   return (
-    <section id={SECTION_IDS.groups} aria-labelledby="groups-title" className="relative py-14 sm:py-20">
+    <section id={SECTION_IDS.groups} aria-labelledby="groups-title" className="relative scroll-mt-40 py-14 sm:py-20 md:scroll-mt-44">
       <div className="container-site">
         <SectionHeading id="groups-title" title={t.groups.title} subtitle={t.groups.subtitle} accent="#F5B42A" />
         <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">

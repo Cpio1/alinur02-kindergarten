@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, Phone, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { NAV_ITEMS, SECTION_IDS, SITE, whatsappLink } from "@/data/site";
 import { LANGS } from "@/data/translations";
 import { useI18n } from "@/lib/i18n";
@@ -108,6 +108,21 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Мобильное меню: сначала закрываем меню и снимаем блокировку прокрутки,
+  // затем прокручиваем — отступ берётся из scroll-margin-top секции (CSS).
+  const goToSection = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    setOpen(false);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.setTimeout(() => {
+      document.body.style.overflow = "";
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+    }, 60);
+  };
+
   const wa = whatsappLink(lang);
 
   return (
@@ -206,7 +221,7 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
                       <li key={item.id} className={i === NAV_ITEMS.length - 1 ? "col-span-2" : ""}>
                         <a
                           href={`#${item.id}`}
-                          onClick={() => setOpen(false)}
+                          onClick={(e) => goToSection(e, item.id)}
                           className={`flex min-h-12 items-center rounded-2xl px-4 text-[15px] font-extrabold text-ink transition active:scale-[0.98] ${tints[i % 4]} ${
                             active === item.id ? "ring-2 ring-violet/60" : ""
                           }`}

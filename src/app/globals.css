@@ -55,7 +55,6 @@
 html {
   color-scheme: light only;
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-h);
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
 }
@@ -68,14 +67,18 @@ body {
   overflow-x: clip;
 }
 
-/* Разделы: учитываем фиксированную шапку */
-section[id] {
-  scroll-margin-top: var(--header-h);
-}
-/* «Топтар» и «Байланыс» — с дополнительным запасом */
-#groups,
-#contacts {
-  scroll-margin-top: calc(var(--header-h) + 12px);
+/*
+ * Разделы: учитываем фиксированную шапку.
+ * В @layer base, чтобы утилиты Tailwind (scroll-mt-*) на конкретной секции имели приоритет.
+ * «Топтар» и «Галерея» задают свой отступ классами scroll-mt-* в компонентах.
+ */
+@layer base {
+  section[id] {
+    scroll-margin-top: calc(var(--header-h) + 12px);
+  }
+  #contacts {
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
 }
 
 ::selection {

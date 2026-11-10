@@ -44,7 +44,7 @@ export function Gallery({ images }: { images: string[] }) {
   const buttonVisibility = total > DESKTOP_COUNT ? "" : total > MOBILE_COUNT ? "md:hidden" : "hidden";
 
   return (
-    <section id={SECTION_IDS.gallery} aria-labelledby="gallery-title" className="relative py-14 sm:py-20">
+    <section id={SECTION_IDS.gallery} aria-labelledby="gallery-title" className="relative scroll-mt-40 py-14 sm:py-20 md:scroll-mt-44">
       <Cloud className="absolute top-10 right-[6%] hidden h-12 w-24 animate-float-slow drop-shadow md:block" color="#E9D9FF" />
       <Star className="absolute top-24 left-[7%] hidden h-7 w-7 animate-twinkle md:block" />
       <div className="container-site">

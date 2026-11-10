@@ -52,3 +52,19 @@ export function getGalleryImages(): string[] {
   const images = listImages("images").filter((src) => !RESERVED.test(decodeURIComponent(src.split("/").pop() ?? "")));
   return [...listImages("gallery"), ...listImages("photos"), ...images];
 }
+
+/** Соотношение сторон PNG (ширина / высота) по заголовку файла; для других форматов — null */
+export function getImageRatio(src: string | null): number | null {
+  if (!src || !/\.png$/i.test(src)) return null;
+  try {
+    const fd = fs.openSync(path.join(PUBLIC_DIR, decodeURIComponent(src)), "r");
+    const buf = Buffer.alloc(24);
+    fs.readSync(fd, buf, 0, 24, 0);
+    fs.closeSync(fd);
+    const w = buf.readUInt32BE(16);
+    const h = buf.readUInt32BE(20);
+    return w && h ? w / h : null;
+  } catch {
+    return null;
+  }
+}

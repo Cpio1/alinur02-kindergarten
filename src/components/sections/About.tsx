@@ -10,23 +10,25 @@ import { KindergartenScene } from "@/components/ui/Illustrations";
 
 const FACT_COLORS = ["bg-lilac text-violet", "bg-mint text-mint-deep", "bg-sun text-[#8a5a00]"];
 
-export function About({ aboutSrc }: { aboutSrc: string | null }) {
+export function About({ aboutSrc, aboutRatio }: { aboutSrc: string | null; aboutRatio: number | null }) {
+  // Для горизонтальных фото используем более широкую рамку той же формы — меньше обрезки
+  const landscape = aboutRatio !== null && aboutRatio > 1.15;
   const { t } = useI18n();
 
   return (
     <section id={SECTION_IDS.about} aria-labelledby="about-title" className="relative py-14 sm:py-20">
       <div className="container-site grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         {/* Композиция с фото */}
-        <Reveal className="relative mx-auto w-full max-w-[380px] sm:max-w-[420px] lg:order-none">
+        <Reveal className={`relative mx-auto w-full ${landscape ? "max-w-[520px]" : "max-w-[380px] sm:max-w-[420px]"}`}>
           <Circle className="absolute -top-5 -left-5 h-28 w-28" color="#D7F5DF" />
           <div aria-hidden="true" className="absolute -right-4 -bottom-4 h-[85%] w-[85%] rounded-[40px_120px_40px_120px] bg-rose" />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[120px_40px_120px_40px] border-[6px] border-white bg-lilac shadow-soft">
+          <div className={`relative overflow-hidden rounded-[120px_40px_120px_40px] ${landscape ? "aspect-[5/4]" : "aspect-[4/5]"} border-[6px] border-white bg-lilac shadow-soft`}>
             {aboutSrc ? (
               <Image
                 src={aboutSrc}
                 alt={t.about.imageAlt}
                 fill
-                sizes="(min-width: 1024px) 420px, 85vw"
+                sizes="(min-width: 1024px) 520px, 90vw"
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
             ) : (

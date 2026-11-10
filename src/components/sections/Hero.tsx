@@ -16,7 +16,9 @@ const STAT_STYLES = [
   { bg: "bg-rose", icon: Clock, iconColor: "text-rose-deep", shape: "rounded-[28px_28px_10px_28px]" },
 ];
 
-export function Hero({ heroSrc }: { heroSrc: string | null }) {
+export function Hero({ heroSrc, heroRatio }: { heroSrc: string | null; heroRatio: number | null }) {
+  // Квадратные/вертикальные изображения показываем целиком, чтобы не обрезать края
+  const containHero = heroRatio !== null && heroRatio < 1.1;
   const { t, lang } = useI18n();
 
   return (
@@ -79,7 +81,7 @@ export function Hero({ heroSrc }: { heroSrc: string | null }) {
             className="relative mx-auto w-full max-w-[340px] min-[400px]:max-w-[400px] sm:max-w-[460px] lg:max-w-[500px]"
           >
             <div aria-hidden="true" className="absolute -inset-3 animate-blob bg-gradient-to-br from-lavender via-[#FF9DBE] to-sun-deep opacity-80 blob-shape sm:-inset-4" />
-            <div className="relative aspect-[1.2] animate-blob overflow-hidden blob-shape bg-lilac shadow-lift">
+            <div className={`relative aspect-[1.2] animate-blob overflow-hidden blob-shape shadow-lift ${containHero ? "bg-white" : "bg-lilac"}`}>
               {heroSrc ? (
                 <Image
                   src={heroSrc}
@@ -87,7 +89,7 @@ export function Hero({ heroSrc }: { heroSrc: string | null }) {
                   fill
                   priority
                   sizes="(min-width: 1024px) 500px, (min-width: 640px) 460px, 90vw"
-                  className="object-cover object-center"
+                  className={containHero ? "object-contain p-[6%]" : "object-cover object-center"}
                 />
               ) : (
                 <KindergartenScene className="h-full w-full" title={t.hero.illustrationAlt} />

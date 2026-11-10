@@ -11,13 +11,13 @@ import { Gallery } from "@/components/sections/Gallery";
 import { Documents } from "@/components/sections/Documents";
 import { Contacts } from "@/components/sections/Contacts";
 import { SITE } from "@/data/site";
-import { findImage, getGalleryImages } from "@/lib/media";
+import { findImage, getGalleryImages, getImageRatio } from "@/lib/media";
 import { SEO } from "@/lib/seo";
 
 export default function HomePage() {
   // Фотографии подхватываются из public/ во время сборки
   const heroSrc = findImage("main-page", "hero");
-  const aboutSrc = findImage("about");
+  const aboutSrc = findImage("main-page2", "about");
   const logoSrc = findImage("logo");
   const gallery = getGalleryImages();
 
@@ -43,8 +43,8 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <Header logoSrc={logoSrc} />
       <main id="main" className="flex-1">
-        <Hero heroSrc={heroSrc} />
-        <About aboutSrc={aboutSrc} />
+        <Hero heroSrc={heroSrc} heroRatio={getImageRatio(heroSrc)} />
+        <About aboutSrc={aboutSrc} aboutRatio={getImageRatio(aboutSrc)} />
         <Advantages />
         <Groups />
         <Nutrition />

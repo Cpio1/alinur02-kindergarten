@@ -26,8 +26,9 @@ export const SITE = {
   /** Запрос для поиска адреса в 2GIS (без выдуманных ID и координат) */
   twoGisQuery: "Алматы, Боралдай, Төребек Османов көшесі, 81",
 
-  /** Ссылка на папку Google Drive — задаётся через переменную окружения */
-  documentsUrl: process.env.NEXT_PUBLIC_DOCUMENTS_URL?.trim() || "",
+  /** Папка Google Drive с документами (можно переопределить через NEXT_PUBLIC_DOCUMENTS_URL) */
+  documentsUrl:
+    process.env.NEXT_PUBLIC_DOCUMENTS_URL?.trim() || "https://drive.google.com/drive/folders/1G0tP72_TQTEaWM94J71qsyl7zlV3WSai",
 
   /** Реальный адрес сайта — задаётся через переменную окружения */
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "") || "",
@@ -44,17 +45,7 @@ export function whatsappLink(lang: keyof typeof WHATSAPP_MESSAGES = "kk") {
 
 export const TWO_GIS_URL = `https://2gis.kz/almaty/search/${encodeURIComponent(SITE.twoGisQuery)}`;
 
-/** Документы доступны только если указана корректная https-ссылка */
-export function getDocumentsUrl(): string | null {
-  const url = SITE.documentsUrl;
-  if (!url) return null;
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === "https:" ? parsed.toString() : null;
-  } catch {
-    return null;
-  }
-}
+export const DOCUMENTS_URL = SITE.documentsUrl;
 
 /** Якоря разделов страницы */
 export const SECTION_IDS = {

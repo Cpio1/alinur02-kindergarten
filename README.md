@@ -27,14 +27,14 @@ npm run build
 
 | Файл | Где показывается |
 | --- | --- |
-| `public/images/hero.*` | первый экран (без файла — иллюстрация) |
+| `public/images/main-page.png` | первый экран (без файла — иллюстрация) |
 | `public/images/about.*` | раздел «Біз туралы» (без файла — иллюстрация) |
-| `public/images/logo.*` | логотип в шапке (без файла — нейтральный значок и название) |
-| `public/gallery/*`, `public/photos/*`, прочие файлы в `public/images/` | галерея, сортировка по имени |
+| `public/images/logo.png` | логотип в шапке и футере (PNG с прозрачным фоном; без файла — нейтральный значок) |
+| `public/images/image1…N.*`, `public/gallery/*`, `public/photos/*` | галерея, сортировка по имени |
 
 Сжать фото: `node scripts/optimize-photo.mjs вход.jpg public/gallery/photo-09.webp`
 
-Сейчас в проект перенесены снимки из предыдущего проекта `alinur-landing` (с водяным знаком 2GIS). Используйте только фото, на которые у сада есть права и согласие родителей.
+Логотип: `node scripts/make-logo-png.mjs logo.jpeg public/images/logo.png` — конвертирует в PNG и убирает белый фон снаружи логотипа. Favicon — `src/app/icon.png` и `src/app/apple-icon.png`.
 
 ## Переменные окружения
 

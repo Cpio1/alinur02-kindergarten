@@ -38,14 +38,22 @@ function Logo({ logoSrc, label }: { logoSrc: string | null; label: string }) {
   return (
     <a href={`#${SECTION_IDS.home}`} aria-label={label} className="group flex shrink-0 items-center gap-2.5 rounded-full">
       {logoSrc ? (
-        <Image src={logoSrc} alt="" width={44} height={44} className="h-11 w-11 rounded-full object-contain" priority />
+        <Image
+          src={logoSrc}
+          alt=""
+          width={104}
+          height={104}
+          sizes="52px"
+          className="h-12 w-12 object-contain drop-shadow-sm transition-transform duration-300 group-hover:rotate-6 sm:h-[52px] sm:w-[52px]"
+          priority
+        />
       ) : (
         <span className="relative grid h-10 w-10 place-items-center rounded-[46%_54%_50%_50%/55%_45%_55%_45%] bg-sun transition-transform duration-300 group-hover:rotate-12">
           <Flower className="h-7 w-7" color="#A78BFA" />
         </span>
       )}
       <span className="flex flex-col leading-none">
-        <span className="text-xl font-black tracking-tight text-ink">{SITE.shortName}</span>
+        <span className="text-lg font-black tracking-tight text-ink min-[360px]:text-xl">{SITE.shortName}</span>
         <span className="mt-0.5 text-[11px] font-bold text-violet">балабақшасы</span>
       </span>
     </a>

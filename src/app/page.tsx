@@ -10,13 +10,13 @@ import { Classes } from "@/components/sections/Classes";
 import { Gallery } from "@/components/sections/Gallery";
 import { Documents } from "@/components/sections/Documents";
 import { Contacts } from "@/components/sections/Contacts";
-import { getDocumentsUrl, SITE } from "@/data/site";
+import { SITE } from "@/data/site";
 import { findImage, getGalleryImages } from "@/lib/media";
 import { SEO } from "@/lib/seo";
 
 export default function HomePage() {
   // Фотографии подхватываются из public/ во время сборки
-  const heroSrc = findImage("hero");
+  const heroSrc = findImage("main-page", "hero");
   const aboutSrc = findImage("about");
   const logoSrc = findImage("logo");
   const gallery = getGalleryImages();
@@ -50,10 +50,10 @@ export default function HomePage() {
         <Nutrition />
         <Classes />
         <Gallery images={gallery} />
-        <Documents documentsUrl={getDocumentsUrl()} />
+        <Documents />
         <Contacts />
       </main>
-      <Footer />
+      <Footer logoSrc={logoSrc} />
       <FloatingWhatsApp />
     </>
   );

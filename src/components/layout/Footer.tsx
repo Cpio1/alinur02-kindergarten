@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { MapPin, Phone } from "lucide-react";
 import { NAV_ITEMS, SITE } from "@/data/site";
 import { useI18n } from "@/lib/i18n";
 import { InstagramIcon } from "@/components/ui/BrandIcons";
 import { Flower, Sparkle, Star, Wave } from "@/components/ui/Decor";
 
-export function Footer() {
+export function Footer({ logoSrc }: { logoSrc: string | null }) {
   const { t } = useI18n();
   return (
     <footer className="relative mt-auto">
@@ -17,10 +18,14 @@ export function Footer() {
         <div className="container-site relative">
           <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
             <div>
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-10 w-10 place-items-center rounded-[46%_54%_50%_50%/55%_45%_55%_45%] bg-sun">
-                  <Flower className="h-7 w-7" color="#A78BFA" />
-                </span>
+              <div className="flex items-center gap-3">
+                {logoSrc ? (
+                  <Image src={logoSrc} alt={SITE.name} width={160} height={160} sizes="80px" className="h-20 w-20 object-contain" />
+                ) : (
+                  <span className="grid h-10 w-10 place-items-center rounded-[46%_54%_50%_50%/55%_45%_55%_45%] bg-sun">
+                    <Flower className="h-7 w-7" color="#A78BFA" />
+                  </span>
+                )}
                 <p className="text-xl font-black text-white">{SITE.name}</p>
               </div>
               <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-white/75">{t.footer.tagline}</p>

@@ -25,7 +25,18 @@ const TILE_PATTERN = [
 
 const PLACEHOLDER_TINTS = ["bg-lilac", "bg-mint", "bg-sun", "bg-rose", "bg-[#DDF1FF]", "bg-lilac"];
 
-export function Gallery({ images }: { images: string[] }) {
+type GalleryItem = { src: string; ratio: number | null };
+
+/** Вертикальные снимки и документы (дипломы) — высокая плитка, чтобы не обрезать края */
+const TALL_TILE = "row-span-2 rounded-[32px_32px_14px_32px]";
+
+function tileClass(item: GalleryItem, i: number) {
+  if (item.ratio !== null && item.ratio < 0.85) return TALL_TILE;
+  return TILE_PATTERN[i % TILE_PATTERN.length];
+}
+
+export function Gallery({ items }: { items: GalleryItem[] }) {
+  const images = items.map((it) => it.src);
   const { t } = useI18n();
   const [expanded, setExpanded] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -65,8 +76,8 @@ export function Gallery({ images }: { images: string[] }) {
         ) : (
           <>
             <ul className="grid auto-rows-[130px] grid-flow-dense grid-cols-2 gap-3 min-[400px]:auto-rows-[150px] md:auto-rows-[170px] md:grid-cols-4 md:gap-4">
-              {images.map((src, i) => (
-                <li key={src} className={`${TILE_PATTERN[i % TILE_PATTERN.length]} overflow-hidden ${visibility(i)}`}>
+              {items.map((item, i) => (
+                <li key={item.src} className={`${tileClass(item, i)} overflow-hidden ${visibility(i)}`}>
                   <button
                     type="button"
                     onClick={() => setLightbox(i)}
@@ -74,7 +85,7 @@ export function Gallery({ images }: { images: string[] }) {
                     className="group relative block h-full w-full overflow-hidden rounded-[inherit] bg-lilac focus-visible:outline-offset-2"
                   >
                     <Image
-                      src={src}
+                      src={item.src}
                       alt={alt(i)}
                       fill
                       sizes="(min-width: 768px) 50vw, 100vw"

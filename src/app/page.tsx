@@ -11,7 +11,7 @@ import { Gallery } from "@/components/sections/Gallery";
 import { Documents } from "@/components/sections/Documents";
 import { Contacts } from "@/components/sections/Contacts";
 import { SITE } from "@/data/site";
-import { findImage, getGalleryImages, getImageRatio } from "@/lib/media";
+import { findImage, getGalleryItems, getImageRatio } from "@/lib/media";
 import { SEO } from "@/lib/seo";
 
 export default function HomePage() {
@@ -19,7 +19,7 @@ export default function HomePage() {
   const heroSrc = findImage("main-page", "hero");
   const aboutSrc = findImage("main-page2", "about");
   const logoSrc = findImage("logo");
-  const gallery = getGalleryImages();
+  const gallery = getGalleryItems();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -49,7 +49,7 @@ export default function HomePage() {
         <Groups />
         <Nutrition />
         <Classes />
-        <Gallery images={gallery} />
+        <Gallery items={gallery} />
         <Documents />
         <Contacts />
       </main>

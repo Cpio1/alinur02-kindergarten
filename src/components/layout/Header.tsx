@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState, type MouseEvent } from "react";
-import { NAV_ITEMS, SECTION_IDS, SITE, whatsappLink } from "@/data/site";
+import { HEADER_NAV_ITEMS as NAV_ITEMS, SECTION_IDS, SITE, whatsappLink } from "@/data/site";
 import { LANGS } from "@/data/translations";
 import { useI18n } from "@/lib/i18n";
 import { WhatsAppIcon } from "@/components/ui/BrandIcons";
@@ -141,7 +141,7 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
         <Logo logoSrc={logoSrc} label={t.header.homeLabel} />
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-0.5 xl:gap-1">
+          <ul className="flex items-center gap-0 xl:gap-0.5">
             {NAV_ITEMS.map((item) => {
               const isActive = active === item.id;
               return (
@@ -149,7 +149,7 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
                   <a
                     href={`#${item.id}`}
                     aria-current={isActive ? "true" : undefined}
-                    className={`relative rounded-full px-2.5 py-2 text-[14px] font-bold transition-colors xl:px-3 ${
+                    className={`relative rounded-full px-2 py-2 text-[13.5px] font-bold whitespace-nowrap transition-colors xl:px-2.5 xl:text-[14px] ${
                       isActive ? "text-violet" : "text-ink hover:text-violet"
                     }`}
                   >
@@ -167,13 +167,13 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <LangSwitch />
           <a
             href={wa}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-violet px-4 py-2.5 text-[14px] font-extrabold text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-violet-dark lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-violet px-4 py-2.5 text-[14px] font-extrabold whitespace-nowrap text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-violet-dark lg:inline-flex"
           >
             <WhatsAppIcon className="h-4 w-4" />
             <span className="hidden xl:inline">{t.header.cta}</span>
@@ -218,7 +218,7 @@ export function Header({ logoSrc }: { logoSrc: string | null }) {
                   {NAV_ITEMS.map((item, i) => {
                     const tints = ["bg-lilac", "bg-mint", "bg-sun", "bg-rose"];
                     return (
-                      <li key={item.id} className={i === NAV_ITEMS.length - 1 ? "col-span-2" : ""}>
+                      <li key={item.id} className={NAV_ITEMS.length % 2 === 1 && i === NAV_ITEMS.length - 1 ? "col-span-2" : ""}>
                         <a
                           href={`#${item.id}`}
                           onClick={(e) => goToSection(e, item.id)}

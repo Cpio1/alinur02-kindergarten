@@ -67,7 +67,11 @@ export const NAV_ITEMS = [
   { key: "nutrition", id: SECTION_IDS.nutrition },
   { key: "classes", id: SECTION_IDS.classes },
   { key: "gallery", id: SECTION_IDS.gallery },
+  { key: "documents", id: SECTION_IDS.documents },
   { key: "contacts", id: SECTION_IDS.contacts },
 ] as const;
+
+/** Пункты верхнего меню: без «Басты бет» — на главную ведут логотип и название */
+export const HEADER_NAV_ITEMS = NAV_ITEMS.filter((item) => item.key !== "home");
 
 export type NavKey = (typeof NAV_ITEMS)[number]["key"];

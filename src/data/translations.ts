@@ -14,6 +14,7 @@ const kk = {
     nutrition: "Тамақтану",
     classes: "Сабақтар",
     gallery: "Галерея",
+    documents: "Құжаттар",
     contacts: "Байланыс",
   },
   header: {
@@ -173,6 +174,7 @@ const ru: Dictionary = {
     nutrition: "Питание",
     classes: "Занятия",
     gallery: "Галерея",
+    documents: "Документы",
     contacts: "Контакты",
   },
   header: {
